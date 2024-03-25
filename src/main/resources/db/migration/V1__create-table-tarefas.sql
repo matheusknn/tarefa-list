@@ -4,7 +4,7 @@ create table tarefas(
     titulo varchar(200) not null,
     criacao datetime not null,
     limite datetime not null,
-    finalizacao date,
+    finalizacao datetime,
 
-    primary key(id).
+    primary key(id)
 );
