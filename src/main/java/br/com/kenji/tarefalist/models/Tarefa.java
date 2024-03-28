@@ -3,6 +3,7 @@ package br.com.kenji.tarefalist.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +21,7 @@ public class Tarefa {
     private Long id;
     private String titulo;
     private LocalDateTime criacao;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime limite;
     private LocalDateTime finalizacao;
 
