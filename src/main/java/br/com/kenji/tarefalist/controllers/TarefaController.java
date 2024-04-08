@@ -57,4 +57,12 @@ public class TarefaController {
         return "redirect:/";
     }
 
+    @GetMapping("/delete/{id}")
+    public ModelAndView delete(@PathVariable Long id) {
+        var tarefa = tarefaRepository.findById(id);
+        if(tarefa.isEmpty()) {
+            throw new  ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return new ModelAndView("tarefa/deletar", Map.of("tarefa", tarefa.get()));
+    }
 }
