@@ -50,8 +50,9 @@ public class TarefaController {
     }
 
     @PostMapping("/edit/{id}")
-    public String edit(Tarefa tarefa) {
-        tarefa.setCriacao(LocalDateTime.now());
+    public String edit(@PathVariable Long id, Tarefa tarefa) {
+        var tarefinha = tarefaRepository.findById(id);
+        tarefa.setCriacao(tarefinha.get().getCriacao());
         tarefaRepository.save(tarefa);
         return "redirect:/";
     }

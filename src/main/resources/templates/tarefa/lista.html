@@ -36,7 +36,7 @@
             <td th:text="${tarefa.finalizacao != null ? #temporals.format(tarefa.finalizacao, 'dd/MM/yyyy') : '-'}">-</td>
             <td>
                 <a href="#" class="btn btn-sm btn-primary">Concluir</a>
-                <a href="#" class="btn btn-sm btn-secondary">Editar</a>
+                <a th:href="@{/edit/{id}(id=${tarefa.id})}" class="btn btn-sm btn-secondary">Editar</a>
                 <a href="#" class="btn btn-sm btn-danger">Excluir</a>
             </td>
         </tr>
