@@ -2,6 +2,7 @@ package br.com.kenji.tarefalist.controllers;
 
 import br.com.kenji.tarefalist.models.Tarefa;
 import br.com.kenji.tarefalist.repositories.TarefaRepository;
+import jakarta.validation.constraints.PastOrPresent;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,5 +65,11 @@ public class TarefaController {
             throw new  ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return new ModelAndView("tarefa/deletar", Map.of("tarefa", tarefa.get()));
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(Tarefa tarefa) {
+        tarefaRepository.delete(tarefa);
+        return "redirect:/";
     }
 }
