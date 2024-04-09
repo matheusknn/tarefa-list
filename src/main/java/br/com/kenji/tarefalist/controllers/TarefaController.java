@@ -2,9 +2,11 @@ package br.com.kenji.tarefalist.controllers;
 
 import br.com.kenji.tarefalist.models.Tarefa;
 import br.com.kenji.tarefalist.repositories.TarefaRepository;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.PastOrPresent;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +36,10 @@ public class TarefaController {
     }
 
     @PostMapping("/create")
-    public String create(Tarefa tarefa) {
+    public String create(@Valid Tarefa tarefa, BindingResult result) {
+        if(result.hasErrors()) {
+            return "tarefa/form";
+        }
         var dataAtual = LocalDateTime.now();
         tarefa.setCriacao(dataAtual);
         tarefaRepository.save(tarefa);
@@ -51,7 +56,10 @@ public class TarefaController {
     }
 
     @PostMapping("/edit/{id}")
-    public String edit(@PathVariable Long id, Tarefa tarefa) {
+    public String edit(@PathVariable Long id, @Valid Tarefa tarefa, BindingResult result) {
+        if(result.hasErrors()) {
+            return "tarefa/form";
+        }
         var tarefinha = tarefaRepository.findById(id);
         tarefa.setCriacao(tarefinha.get().getCriacao());
         tarefaRepository.save(tarefa);

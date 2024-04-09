@@ -13,7 +13,7 @@
 <body>
 <nav class="navbar bg-dark mb-4" data-bs-theme="dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">TarefasList</a>
+        <a class="navbar-brand" href="/">TarefasList</a>
     </div>
 </nav>
 
@@ -28,10 +28,16 @@
         <div class="mb-3">
             <label for="titulo" class="form-label">Titulo</label>
             <input type="text" class="form-control" id="titulo" th:field ="*{titulo}">
+            <ul>
+                <li th:each="error : ${#fields.errors('titulo')}" th : th:text="${error}" class="text-danger"></li>
+            </ul>
         </div>
         <div class="mb-3">
             <label for="limite" class="form-label">Data de Entrega</label>
             <input type="datetime-local" class="form-control" id="limite" th:field = "*{limite}">
+            <ul>
+                <li th:each="error : ${#fields.errors('limite')}" th : th:text="${error}" class="text-danger"></li>
+            </ul>
         </div>
         <button type="submit" class="btn-primary">Salvar</button>
     </form>
