@@ -27,14 +27,14 @@
         <input type="hidden" th:field="*{id}">
         <div class="mb-3">
             <label for="titulo" class="form-label">Titulo</label>
-            <input type="text" class="form-control" id="titulo" th:field ="*{titulo}">
+            <input type="text" class="form-control" id="titulo" th:field ="*{titulo}" required>
             <ul>
                 <li th:each="error : ${#fields.errors('titulo')}" th : th:text="${error}" class="text-danger"></li>
             </ul>
         </div>
         <div class="mb-3">
             <label for="limite" class="form-label">Data de Entrega</label>
-            <input type="datetime-local" class="form-control" id="limite" th:field = "*{limite}">
+            <input type="datetime-local" class="form-control" id="limite" th:field = "*{limite}" required>
             <ul>
                 <li th:each="error : ${#fields.errors('limite')}" th : th:text="${error}" class="text-danger"></li>
             </ul>

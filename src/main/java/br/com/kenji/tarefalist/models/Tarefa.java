@@ -33,4 +33,7 @@ public class Tarefa {
     private LocalDateTime limite;
     private LocalDateTime finalizacao;
 
+    public void finalizarTarefa() {
+        this.finalizacao = LocalDateTime.now();
+    }
 }

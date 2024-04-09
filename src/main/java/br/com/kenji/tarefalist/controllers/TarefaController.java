@@ -4,6 +4,7 @@ import br.com.kenji.tarefalist.models.Tarefa;
 import br.com.kenji.tarefalist.repositories.TarefaRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.PastOrPresent;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -27,7 +28,7 @@ public class TarefaController {
 
     @GetMapping("/")
     public ModelAndView list() {
-        return new ModelAndView("tarefa/lista", Map.of("tarefas", tarefaRepository.findAll()));
+        return new ModelAndView("tarefa/lista", Map.of("tarefas", tarefaRepository.findAll(Sort.by("finalizacao"))));
     }
 
     @GetMapping("/create")
@@ -78,6 +79,18 @@ public class TarefaController {
     @PostMapping("/delete/{id}")
     public String delete(Tarefa tarefa) {
         tarefaRepository.delete(tarefa);
+        return "redirect:/";
+    }
+
+    @PostMapping("/finish/{id}")
+    public String finish(@PathVariable Long id) {
+        var optionalTarefa = tarefaRepository.findById(id);
+        if(optionalTarefa.isEmpty()) {
+            throw new  ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        var tarefa = optionalTarefa.get();
+        tarefa.finalizarTarefa();
+        tarefaRepository.save(tarefa);
         return "redirect:/";
     }
 }

@@ -35,8 +35,10 @@
             <td th:text="${#temporals.format(tarefa.limite, 'dd/MM/yyyy')}">20/10/2024</td>
             <td th:text="${tarefa.finalizacao != null ? #temporals.format(tarefa.finalizacao, 'dd/MM/yyyy') : '-'}">-</td>
             <td>
-                <a href="#" class="btn btn-sm btn-primary">Concluir</a>
-                <a th:href="@{/edit/{id}(id=${tarefa.id})}" class="btn btn-sm btn-secondary">Editar</a>
+                <form class="d-inline" th:action="@{/finish/{id}(id=${tarefa.id})}" method="post">
+                    <button type="submit" class="btn btn-sm btn-primary" th:classappend="${tarefa.finalizacao} ? 'disabled' : ''">Concluir</button>
+                </form>
+                <a th:href="@{/edit/{id}(id=${tarefa.id})}" class="btn btn-sm btn-secondary" th:classappend="${tarefa.finalizacao} ? 'disabled' : ''">"Editar</a>
                 <a th:href="@{/delete/{id}(id=${tarefa.id})}" class="btn btn-sm btn-danger">Excluir</a>
             </td>
         </tr>
